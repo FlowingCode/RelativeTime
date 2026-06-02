@@ -1,24 +1,26 @@
-[![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/template-add-on)
-[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/template-add-on.svg)](https://vaadin.com/directory/component/template-add-on)
-[![Build Status](https://jenkins.flowingcode.com/job/template-addon/badge/icon)](https://jenkins.flowingcode.com/job/template-addon)
-[![Maven Central](https://img.shields.io/maven-central/v/com.flowingcode.vaadin.addons/template-addon)](https://mvnrepository.com/artifact/com.flowingcode.vaadin.addons/template-addon)
-[![Javadoc](https://img.shields.io/badge/javadoc-00b4f0)](https://javadoc.flowingcode.com/artifact/com.flowingcode.vaadin.addons/template-addon)
+[![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/relative-time-add-on)
+[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/relative-time-addon.svg)](https://vaadin.com/directory/component/relative-time-add-on)
+[![Build Status](https://jenkins.flowingcode.com/job/RelativeTime-addon/badge/icon)](https://jenkins.flowingcode.com/job/RelativeTime-addon)
+[![Maven Central](https://img.shields.io/maven-central/v/com.flowingcode.vaadin.addons/relative-time-addon)](https://mvnrepository.com/artifact/com.flowingcode.vaadin.addons/relative-time-addon)
+[![Javadoc](https://img.shields.io/badge/javadoc-00b4f0)](https://javadoc.flowingcode.com/artifact/com.flowingcode.vaadin.addons/relative-time-addon)
 
-# Template Add-On
+# Relative Time Add-On
 
-This is a template project for building new Vaadin 24 add-ons
+Component for rendering dates as auto-updating, locale-aware relative time strings.
 
 ## Features
 
-* List the features of your add-on in here
+* Renders a date/time as a human-readable relative string ("4 hours from now", "3 days ago", "in 2 weeks") that updates in the browser as time passes.
+* Accepts the standard `java.time` types (`Instant`, `OffsetDateTime`, `ZonedDateTime`, `LocalDateTime`, `LocalDate`).
+* Typed Java API for the upstream [`@github/relative-time-element`](https://github.com/github/relative-time-element) attributes: tense, format, precision, format style, threshold, prefix, locale, time-zone, and per-part absolute-date formatting (year/month/day/weekday/hour/minute/second).
 
 ## Online demo
 
-[Online demo here](http://addonsv24.flowingcode.com/template)
+[Online demo here](http://addonsv25.flowingcode.com/relative-time)
 
 ## Download release
 
-[Available in Vaadin Directory](https://vaadin.com/directory/component/template-add-on)
+[Available in Vaadin Directory](https://vaadin.com/directory/component/relative-time-add-on)
 
 ### Maven install
 
@@ -27,7 +29,7 @@ Add the following dependencies in your pom.xml file:
 ```xml
 <dependency>
    <groupId>com.flowingcode.vaadin.addons</groupId>
-   <artifactId>template-addon</artifactId>
+   <artifactId>relative-time-addon</artifactId>
    <version>X.Y.Z</version>
 </dependency>
 ```
@@ -44,7 +46,7 @@ To see the demo, navigate to http://localhost:8080/
 
 ## Release notes
 
-See [here](https://github.com/FlowingCode/TemplateAddon/releases)
+See [here](https://github.com/FlowingCode/RelativeTime/releases)
 
 ## Issue tracking
 
@@ -84,13 +86,30 @@ Then, follow these steps for creating a contribution:
 
 This add-on is distributed under Apache License 2.0. For license terms, see LICENSE.txt.
 
-Template Add-On is written by Flowing Code S.A.
+Relative Time Add-On is written by Flowing Code S.A.
 
 # Developer Guide
 
 ## Getting started
 
-Add your code samples in this section
+Add a `RelativeTime` to your layout and configure it through fluent setters:
+
+```java
+RelativeTime deadline = new RelativeTime(task.getDueDate())
+    .setTense(Tense.AUTO)
+    .setFormat(Format.RELATIVE)
+    .setFormatStyle(FormatStyle.LONG)
+    .setThreshold(Duration.ofDays(30))   // switch to absolute date past a month
+    .setLocale(UI.getCurrent().getLocale());
+
+add(new Span("Due "), deadline);
+```
+
+The setters accept any of `Instant`, `OffsetDateTime`, `ZonedDateTime`, `LocalDateTime`, or `LocalDate`. `LocalDateTime` and `LocalDate` are interpreted in the server's default zone.
+
+The relative string is computed and updated in the browser by the underlying web component. The server sends only the target datetime, so the text reflects the **viewer's** clock and locale, not the server's, and there is no server-side API to read the rendered string.
+
+For continuously-ticking elapsed displays use `Format.DURATION` or `Format.MICRO`. `Format.RELATIVE` (the default) collapses past times under a minute to "now". See [SPECIFICATIONS.md](SPECIFICATIONS.md) §2.8 for the full live-update behaviour matrix.
 
 ## Special configuration when using Spring
 

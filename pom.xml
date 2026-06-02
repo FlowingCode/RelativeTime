@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.flowingcode.vaadin.addons</groupId>
-    <artifactId>template-addon</artifactId>
+    <artifactId>relative-time-addon</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>Template Add-on</name>
-    <description>Template Add-on for Vaadin Flow</description>
+    <name>Relative Time Add-On</name>
+    <description>Component for rendering dates as auto-updating, locale-aware relative time strings</description>
     <url>https://www.flowingcode.com/en/open-source/</url>
 
     <properties>
@@ -38,9 +38,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/FlowingCode/AddonStarter24</url>
-        <connection>scm:git:git://github.com/FlowingCode/AddonStarter24.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:/FlowingCode/AddonStarter24.git</developerConnection>
+        <url>https://github.com/FlowingCode/RelativeTime</url>
+        <connection>scm:git:git://github.com/FlowingCode/RelativeTime.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:/FlowingCode/RelativeTime.git</developerConnection>
         <tag>master</tag>
     </scm>
     
@@ -330,7 +330,7 @@
                         <artifactId>jetty-maven-plugin</artifactId>
                         <version>${jetty.version}</version>
                         <configuration>
-                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                            <scan>0</scan>
                             <supportedPackagings>
                                 <supportedPackaging>jar</supportedPackaging>
                             </supportedPackagings>
@@ -580,7 +580,7 @@
             <properties>
                 <maven.compiler.source>21</maven.compiler.source>
                 <maven.compiler.target>21</maven.compiler.target>
-                <vaadin.version>25.0.3</vaadin.version>
+                <vaadin.version>25.1.6</vaadin.version>
             </properties>
             <dependencies>
                 <dependency>

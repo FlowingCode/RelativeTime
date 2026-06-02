@@ -1,0 +1,134 @@
+/*-
+ * #%L
+ * Relative Time Add-On
+ * %%
+ * Copyright (C) 2026 Flowing Code
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+/* Demo styles.
+   Every property uses a Lumo -> Vaadin base -> literal fallback chain so the
+   demos look correct under Lumo, Aura, and the bare Vaadin base theme. */
+
+/* Row helper (used in RelativeTimeDemo basic-demo rows) */
+.relative-time-demo-row {
+    padding: var(--lumo-space-xs, var(--vaadin-padding-xs, 0.25rem)) 0;
+}
+
+.relative-time-demo-row-label {
+    min-width: 22em;
+    color: var(--lumo-secondary-text-color,
+        var(--vaadin-text-color-secondary, #6b7280));
+}
+
+/* Shared separator (works in Lumo, Aura, base) */
+/* Rendered as a <div> (not <hr>) so theme-specific hr styling can't hide it.
+   align-self/flex-shrink are needed because a VerticalLayout is a flex column;
+   without them a 1px row gets squashed to zero or rendered at content-only
+   width. */
+.relative-time-demo-separator {
+    display: block;
+    align-self: stretch;
+    flex: 0 0 1px;
+    height: 1px;
+    background-color: var(--lumo-contrast-20pct,
+        var(--vaadin-border-color-secondary, rgba(0, 0, 0, 0.2)));
+    margin: var(--lumo-space-s, var(--vaadin-padding-s, 0.5rem)) 0;
+}
+
+/* Use-case block helper */
+.relative-time-demo-use-case-title {
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.relative-time-demo-use-case-content {
+    margin-top: var(--lumo-space-s, var(--vaadin-padding-s, 0.5rem));
+}
+
+.relative-time-demo-use-case-explanation {
+    font-size: 0.9em;
+    color: var(--lumo-secondary-text-color,
+        var(--vaadin-text-color-secondary, #6b7280));
+    margin-top: var(--lumo-space-s, var(--vaadin-padding-s, 0.5rem));
+}
+
+/* Chat messages */
+.relative-time-demo-chat {
+    max-width: 32em;
+}
+
+.relative-time-demo-chat-bubble {
+    padding: var(--lumo-space-s, var(--vaadin-padding-s, 0.5rem))
+        var(--lumo-space-m, var(--vaadin-padding-m, 1rem));
+    border-radius: var(--lumo-border-radius-l, var(--vaadin-radius-l, 0.75rem));
+    max-width: 75%;
+}
+
+.relative-time-demo-chat-bubble-sent {
+    background: var(--lumo-primary-color, #1676f3);
+    color: var(--lumo-primary-contrast-color, #fff);
+}
+
+.relative-time-demo-chat-bubble-received {
+    background: var(--lumo-contrast-10pct,
+        var(--vaadin-background-container, rgba(0, 0, 0, 0.06)));
+    color: var(--lumo-body-text-color, var(--vaadin-text-color, inherit));
+}
+
+.relative-time-demo-chat-bubble-stamp {
+    font-size: 0.75em;
+    display: block;
+    text-align: right;
+    margin-top: var(--lumo-space-xs, var(--vaadin-padding-xs, 0.25rem));
+    opacity: 0.75;
+}
+
+/* Event card */
+.relative-time-demo-event-card {
+    border: 1px solid var(--lumo-contrast-20pct,
+        var(--vaadin-border-color-secondary, rgba(0, 0, 0, 0.12)));
+    border-radius: var(--lumo-border-radius-m, var(--vaadin-radius-m, 0.25rem));
+    max-width: 20em;
+}
+
+.relative-time-demo-event-card-title {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.relative-time-demo-event-card-location {
+    color: var(--lumo-secondary-text-color,
+        var(--vaadin-text-color-secondary, #6b7280));
+}
+
+/* Stopwatch */
+.relative-time-demo-stopwatch-placeholder {
+    color: var(--lumo-secondary-text-color,
+        var(--vaadin-text-color-secondary, #6b7280));
+}
+
+/* Session expiry banner */
+.relative-time-demo-session-banner {
+    background: var(--lumo-error-color-10pct, rgba(220, 38, 38, 0.08));
+    border: 1px solid var(--lumo-error-color-50pct, rgba(220, 38, 38, 0.4));
+    border-radius: var(--lumo-border-radius-m, var(--vaadin-radius-m, 0.25rem));
+    padding: var(--lumo-space-s, var(--vaadin-padding-s, 0.5rem));
+    max-width: 32em;
+}
+
+.relative-time-demo-session-banner-icon {
+    margin-right: var(--lumo-space-s, var(--vaadin-padding-s, 0.5rem));
+}

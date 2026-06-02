@@ -1,8 +1,8 @@
 /*-
  * #%L
- * Template Add-on
+ * Relative Time Add-On
  * %%
- * Copyright (C) 2025 Flowing Code
+ * Copyright (C) 2026 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,20 @@
  * #L%
  */
 
-package com.flowingcode.vaadin.addons.template;
+package com.flowingcode.vaadin.addons.relativetime;
 
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.Route;
+import java.util.Locale;
 
-@SuppressWarnings("serial")
-@Route("")
-public class DemoView extends VerticalLayout implements BeforeEnterObserver {
+/** Values for the {@code tense} attribute on {@code <relative-time>}. */
+public enum Tense {
+  /** Past or future is decided from the target instant. */
+  AUTO,
+  /** Force past phrasing ("3 days ago"). */
+  PAST,
+  /** Force future phrasing ("in 3 days"). */
+  FUTURE;
 
-  @Override
-  public void beforeEnter(BeforeEnterEvent event) {
-    event.forwardTo(TemplateDemoView.class);
+  String attributeValue() {
+    return name().toLowerCase(Locale.ROOT);
   }
 }
