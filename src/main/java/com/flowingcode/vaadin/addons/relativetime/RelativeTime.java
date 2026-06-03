@@ -172,6 +172,15 @@ public class RelativeTime extends Component {
   }
 
   /**
+   * Clears the target datetime: removes the {@code datetime} attribute and the component renders
+   * as empty. Equivalent to {@code setDateTime((Instant) null)} but without the cast that the
+   * overloaded {@code setDateTime(null)} would otherwise require.
+   */
+  public RelativeTime clear() {
+    return setDateTime((Instant) null);
+  }
+
+  /**
    * Returns the last instant applied via any of the {@code setDateTime} overloads, normalised to
    * UTC. Returns {@code null} if no datetime has been set or it was cleared.
    */

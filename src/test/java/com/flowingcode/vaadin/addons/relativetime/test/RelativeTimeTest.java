@@ -66,6 +66,14 @@ public class RelativeTimeTest {
   }
 
   @Test
+  public void clear_removesAttributeAndGetter() {
+    RelativeTime rt = new RelativeTime(FIXED);
+    assertEquals(rt, rt.clear());
+    assertNull(attr(rt, "datetime"));
+    assertNull(rt.getDateTime());
+  }
+
+  @Test
   public void setDateTime_offsetDateTime_normalisesToInstant() {
     OffsetDateTime odt = OffsetDateTime.of(2026, 1, 15, 14, 34, 56, 0, ZoneOffset.ofHours(2));
     RelativeTime rt = new RelativeTime();

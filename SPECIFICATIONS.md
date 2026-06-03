@@ -143,6 +143,7 @@ public class RelativeTime extends Component {                 // HasStyle inheri
     public RelativeTime setDateTime(ZonedDateTime datetime);
     public RelativeTime setDateTime(LocalDateTime datetime);   // uses ZoneId.systemDefault()
     public RelativeTime setDateTime(LocalDate date);           // uses ZoneId.systemDefault()
+    public RelativeTime clear();                               // clears datetime (no cast needed)
     public Instant getDateTime();                              // last value pushed, in UTC
 }
 ```
