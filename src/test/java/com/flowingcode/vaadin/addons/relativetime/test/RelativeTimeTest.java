@@ -253,6 +253,30 @@ public class RelativeTimeTest {
     assertNull(attr(rt, "second"));
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void setWeekday_rejectsNumericStyle() {
+    new RelativeTime().setWeekday(DateTimePartStyle.NUMERIC);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void setYear_rejectsTextStyle() {
+    new RelativeTime().setYear(DateTimePartStyle.LONG);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void setDay_rejectsTextStyle() {
+    new RelativeTime().setDay(DateTimePartStyle.NARROW);
+  }
+
+  @Test
+  public void setMonth_acceptsEveryStyle() {
+    RelativeTime rt = new RelativeTime();
+    for (DateTimePartStyle style : DateTimePartStyle.values()) {
+      rt.setMonth(style);
+      assertTrue("month should accept " + style, rt.getElement().hasAttribute("month"));
+    }
+  }
+
   // --- fluent chain returns this -----------------------------------------
 
   @Test

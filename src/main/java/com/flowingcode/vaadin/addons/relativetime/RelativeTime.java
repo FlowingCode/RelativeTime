@@ -32,7 +32,9 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.EnumSet;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Renders a date/time as a human-readable relative string ("4 hours ago", "in 2 weeks") that
@@ -79,6 +81,16 @@ public class RelativeTime extends Component implements HasSize {
   private static final String ATTR_HOUR = "hour";
   private static final String ATTR_MINUTE = "minute";
   private static final String ATTR_SECOND = "second";
+
+  /** Styles accepted by the numeric date-part attributes (year, day, hour, minute, second). */
+  private static final Set<DateTimePartStyle> NUMERIC_STYLES =
+      Set.of(DateTimePartStyle.NUMERIC, DateTimePartStyle.TWO_DIGIT);
+  /** Styles accepted by the textual date-part attribute (weekday). */
+  private static final Set<DateTimePartStyle> TEXT_STYLES =
+      Set.of(DateTimePartStyle.NARROW, DateTimePartStyle.SHORT, DateTimePartStyle.LONG);
+  /** Styles accepted by the month attribute (numeric and textual). */
+  private static final Set<DateTimePartStyle> ALL_STYLES =
+      EnumSet.allOf(DateTimePartStyle.class);
 
   private Instant lastDateTime;
 
@@ -278,8 +290,7 @@ public class RelativeTime extends Component implements HasSize {
    * {@link Format#DATETIME}. {@code null} removes the attribute.
    */
   public RelativeTime setYear(DateTimePartStyle style) {
-    setOrRemove(ATTR_YEAR, style == null ? null : style.attributeValue());
-    return this;
+    return setDatePart(ATTR_YEAR, style, NUMERIC_STYLES);
   }
 
   /**
@@ -289,8 +300,7 @@ public class RelativeTime extends Component implements HasSize {
    * {@link #setFormat format} is {@link Format#DATETIME}. {@code null} removes the attribute.
    */
   public RelativeTime setMonth(DateTimePartStyle style) {
-    setOrRemove(ATTR_MONTH, style == null ? null : style.attributeValue());
-    return this;
+    return setDatePart(ATTR_MONTH, style, ALL_STYLES);
   }
 
   /**
@@ -299,8 +309,7 @@ public class RelativeTime extends Component implements HasSize {
    * {@link Format#DATETIME}. {@code null} removes the attribute.
    */
   public RelativeTime setDay(DateTimePartStyle style) {
-    setOrRemove(ATTR_DAY, style == null ? null : style.attributeValue());
-    return this;
+    return setDatePart(ATTR_DAY, style, NUMERIC_STYLES);
   }
 
   /**
@@ -309,8 +318,7 @@ public class RelativeTime extends Component implements HasSize {
    * {@link #setFormat format} is {@link Format#DATETIME}. {@code null} removes the attribute.
    */
   public RelativeTime setWeekday(DateTimePartStyle style) {
-    setOrRemove(ATTR_WEEKDAY, style == null ? null : style.attributeValue());
-    return this;
+    return setDatePart(ATTR_WEEKDAY, style, TEXT_STYLES);
   }
 
   /**
@@ -319,8 +327,7 @@ public class RelativeTime extends Component implements HasSize {
    * {@link Format#DATETIME}. {@code null} removes the attribute.
    */
   public RelativeTime setHour(DateTimePartStyle style) {
-    setOrRemove(ATTR_HOUR, style == null ? null : style.attributeValue());
-    return this;
+    return setDatePart(ATTR_HOUR, style, NUMERIC_STYLES);
   }
 
   /**
@@ -329,8 +336,7 @@ public class RelativeTime extends Component implements HasSize {
    * {@link Format#DATETIME}. {@code null} removes the attribute.
    */
   public RelativeTime setMinute(DateTimePartStyle style) {
-    setOrRemove(ATTR_MINUTE, style == null ? null : style.attributeValue());
-    return this;
+    return setDatePart(ATTR_MINUTE, style, NUMERIC_STYLES);
   }
 
   /**
@@ -339,7 +345,20 @@ public class RelativeTime extends Component implements HasSize {
    * {@link Format#DATETIME}. {@code null} removes the attribute.
    */
   public RelativeTime setSecond(DateTimePartStyle style) {
-    setOrRemove(ATTR_SECOND, style == null ? null : style.attributeValue());
+    return setDatePart(ATTR_SECOND, style, NUMERIC_STYLES);
+  }
+
+  /**
+   * Writes a date-part attribute after checking the style is in the part's allowed subset. The
+   * upstream element silently ignores or coerces out-of-subset values, so we fail fast instead.
+   */
+  private RelativeTime setDatePart(String attribute, DateTimePartStyle style,
+      Set<DateTimePartStyle> allowed) {
+    if (style != null && !allowed.contains(style)) {
+      throw new IllegalArgumentException(
+          attribute + " does not accept " + style + "; allowed values: " + allowed);
+    }
+    setOrRemove(attribute, style == null ? null : style.attributeValue());
     return this;
   }
 
