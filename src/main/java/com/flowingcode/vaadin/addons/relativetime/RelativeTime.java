@@ -235,8 +235,15 @@ public class RelativeTime extends Component {
    * Format#RELATIVE} AND {@link #setTense tense} is {@link Tense#AUTO}.</b> Pairing this with
    * {@code setTense(PAST)} or {@code setTense(FUTURE)} silently makes the threshold inert,
    * because the element then commits to relative phrasing regardless of distance.
+   *
+   * @throws IllegalArgumentException if {@code threshold} is negative. Java serialises a negative
+   *     duration as {@code PT-nS}, which the upstream element's duration parser rejects, silently
+   *     reverting to the default {@code P30D}. Zero is allowed (it means "always absolute").
    */
   public RelativeTime setThreshold(Duration threshold) {
+    if (threshold != null && threshold.isNegative()) {
+      throw new IllegalArgumentException("threshold must not be negative: " + threshold);
+    }
     setOrRemove(ATTR_THRESHOLD, threshold == null ? null : threshold.toString());
     return this;
   }

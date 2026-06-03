@@ -158,6 +158,18 @@ public class RelativeTimeTest {
   }
 
   @Test
+  public void setThreshold_acceptsZero() {
+    RelativeTime rt = new RelativeTime();
+    rt.setThreshold(Duration.ZERO);
+    assertEquals("PT0S", attr(rt, "threshold"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void setThreshold_rejectsNegative() {
+    new RelativeTime().setThreshold(Duration.ofSeconds(-30));
+  }
+
+  @Test
   public void setPrefix_emptyStringSetsEmpty_nullClears() {
     RelativeTime rt = new RelativeTime();
     rt.setPrefix("");

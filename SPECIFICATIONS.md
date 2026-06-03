@@ -58,6 +58,8 @@ relativeTime.setThreshold(Duration.ofDays(30)); // → threshold="PT720H"
 
 **Threshold is only consulted when `format=auto`/`relative` AND `tense=auto`.** Setting `tense=PAST` or `tense=FUTURE` commits the element to relative phrasing regardless of how far away the target is, so the threshold has no effect. Likewise, explicit non-relative formats (`DURATION`, `MICRO`, `ELAPSED`, `DATETIME`) ignore it. This is a common footgun: pairing `setTense(FUTURE)` with `setThreshold(...)` silently makes the threshold inert.
 
+A negative `Duration` is rejected with `IllegalArgumentException`: Java serialises it as `PT-nS`, which the upstream duration parser rejects, silently reverting to the default `P30D`. Zero (`PT0S`) is allowed and means "always absolute".
+
 ### 2.5 Prefix
 
 The `prefix` attribute (default `"on"`) is the word prepended to absolute dates once the threshold is crossed. `setPrefix("")` drops the prefix entirely; `setPrefix(null)` restores the default.
