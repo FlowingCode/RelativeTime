@@ -20,8 +20,6 @@
 
 package com.flowingcode.vaadin.addons.relativetime;
 
-import java.util.Locale;
-
 /**
  * Values for the {@code precision} attribute on {@code <relative-time>}. The element rounds the
  * displayed phrase to the chosen unit.
@@ -35,6 +33,6 @@ public enum Precision {
   SECOND;
 
   String attributeValue() {
-    return name().toLowerCase(Locale.ROOT);
+    return AttributeValues.ofName(this);
   }
 }

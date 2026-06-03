@@ -20,8 +20,6 @@
 
 package com.flowingcode.vaadin.addons.relativetime;
 
-import java.util.Locale;
-
 /** Values for the {@code format-style} attribute on {@code <relative-time>}. */
 public enum FormatStyle {
   /** Long phrasing ("3 days ago"). */
@@ -32,6 +30,6 @@ public enum FormatStyle {
   NARROW;
 
   String attributeValue() {
-    return name().toLowerCase(Locale.ROOT);
+    return AttributeValues.ofName(this);
   }
 }

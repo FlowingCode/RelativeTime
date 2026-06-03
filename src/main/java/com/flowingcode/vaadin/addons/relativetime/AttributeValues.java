@@ -20,16 +20,18 @@
 
 package com.flowingcode.vaadin.addons.relativetime;
 
-/** Values for the {@code tense} attribute on {@code <relative-time>}. */
-public enum Tense {
-  /** Past or future is decided from the target instant. */
-  AUTO,
-  /** Force past phrasing ("3 days ago"). */
-  PAST,
-  /** Force future phrasing ("in 3 days"). */
-  FUTURE;
+import java.util.Locale;
 
-  String attributeValue() {
-    return AttributeValues.ofName(this);
+/** Internal helpers for mapping enum constants to their {@code <relative-time>} wire values. */
+final class AttributeValues {
+
+  private AttributeValues() {}
+
+  /**
+   * Returns the enum constant's name in lower case (e.g. {@code FUTURE} &rarr; {@code "future"}),
+   * the default wire form for enums whose attribute value matches the constant name.
+   */
+  static String ofName(Enum<?> value) {
+    return value.name().toLowerCase(Locale.ROOT);
   }
 }

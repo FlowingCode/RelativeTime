@@ -20,8 +20,6 @@
 
 package com.flowingcode.vaadin.addons.relativetime;
 
-import java.util.Locale;
-
 /** Values for the {@code format} attribute on {@code <relative-time>}. */
 public enum Format {
   /**
@@ -63,6 +61,6 @@ public enum Format {
   MICRO;
 
   String attributeValue() {
-    return name().toLowerCase(Locale.ROOT);
+    return AttributeValues.ofName(this);
   }
 }
