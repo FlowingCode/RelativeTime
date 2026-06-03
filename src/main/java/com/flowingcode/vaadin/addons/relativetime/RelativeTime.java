@@ -270,6 +270,11 @@ public class RelativeTime extends Component {
    * phrasing. {@code null} removes the attribute; when unset, the upstream walks DOM ancestors
    * via {@code closest('[lang]')} and falls back to the document's {@code lang}, so an app-wide
    * locale on {@code <html lang="...">} is picked up automatically.
+   *
+   * <p>Note: {@link Locale#ROOT} (and {@code new Locale("")}) serialises to {@code lang="und"},
+   * which the browser treats as "undetermined" and silently resolves to the document/default
+   * locale, so passing the root locale looks like it was ignored. Pass {@code null} to clear
+   * instead.
    */
   public RelativeTime setLocale(Locale locale) {
     setOrRemove(ATTR_LANG, locale == null ? null : locale.toLanguageTag());
