@@ -26,8 +26,8 @@ The setters accept the standard `java.time` types. Each is converted to an ISO-8
 | Java Type | Conversion | Notes |
 |-----------|------------|-------|
 | `Instant` | direct | Canonical form. |
-| `OffsetDateTime` | `toInstant()` | Offset preserved in the wire string. |
-| `ZonedDateTime` | `toInstant()` | Zone preserved in the wire string. |
+| `OffsetDateTime` | `toInstant()` | Offset applied, then discarded; wire string is the resulting UTC instant. |
+| `ZonedDateTime` | `toInstant()` | Zone applied, then discarded; wire string is the resulting UTC instant. |
 | `LocalDateTime` | `atZone(systemDefault()).toInstant()` | Server zone assumed; document this in the Javadoc. |
 | `LocalDate` | `atStartOfDay(systemDefault()).toInstant()` | Midnight of the server zone. |
 

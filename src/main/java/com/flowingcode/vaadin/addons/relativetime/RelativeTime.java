@@ -137,12 +137,18 @@ public class RelativeTime extends Component {
     return this;
   }
 
-  /** Sets the target as an {@link OffsetDateTime}; the offset is preserved on the wire string. */
+  /**
+   * Sets the target as an {@link OffsetDateTime}. The offset is applied via {@code toInstant()};
+   * the wire string is the resulting UTC instant (the offset itself is not retained).
+   */
   public RelativeTime setDateTime(OffsetDateTime datetime) {
     return setDateTime(datetime == null ? null : datetime.toInstant());
   }
 
-  /** Sets the target as a {@link ZonedDateTime}; the zone is preserved on the wire string. */
+  /**
+   * Sets the target as a {@link ZonedDateTime}. The zone is applied via {@code toInstant()}; the
+   * wire string is the resulting UTC instant (the zone itself is not retained).
+   */
   public RelativeTime setDateTime(ZonedDateTime datetime) {
     return setDateTime(datetime == null ? null : datetime.toInstant());
   }
