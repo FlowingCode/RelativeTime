@@ -294,8 +294,19 @@ public class RelativeTime extends Component {
    * removes the attribute; when unset, the upstream walks DOM ancestors via {@code
    * closest('[time-zone]')} and falls back to the document's {@code time-zone} attribute (and,
    * absent that, the browser default).
+   *
+   * @throws IllegalArgumentException if {@code timeZone} is not an IANA region zone. Offset-based
+   *     zones (a {@link java.time.ZoneOffset} such as {@code +02:00} or {@code Z}, or a
+   *     {@code GMT+02:00} form) are written verbatim into the attribute and rejected by the
+   *     browser's {@code Intl.DateTimeFormat} with a {@code RangeError}, which breaks rendering.
+   *     The accepted set is {@link ZoneId#getAvailableZoneIds()} (which includes {@code UTC}).
    */
   public RelativeTime setTimeZone(ZoneId timeZone) {
+    if (timeZone != null && !ZoneId.getAvailableZoneIds().contains(timeZone.getId())) {
+      throw new IllegalArgumentException(
+          "time-zone must be an IANA zone ID (e.g. America/New_York); offset-based zones like "
+              + timeZone.getId() + " are not accepted by the browser's Intl.DateTimeFormat");
+    }
     setOrRemove(ATTR_TIME_ZONE, timeZone == null ? null : timeZone.getId());
     return this;
   }

@@ -208,6 +208,23 @@ public class RelativeTimeTest {
   }
 
   @Test
+  public void setTimeZone_acceptsUtc() {
+    RelativeTime rt = new RelativeTime();
+    rt.setTimeZone(ZoneId.of("UTC"));
+    assertEquals("UTC", attr(rt, "time-zone"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void setTimeZone_rejectsOffsetZone() {
+    new RelativeTime().setTimeZone(ZoneOffset.ofHours(2));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void setTimeZone_rejectsZuluOffset() {
+    new RelativeTime().setTimeZone(ZoneOffset.UTC);
+  }
+
+  @Test
   public void setTimeZoneName_writesCamelCaseValue() {
     RelativeTime rt = new RelativeTime();
     rt.setTimeZoneName(TimeZoneName.SHORT_OFFSET);

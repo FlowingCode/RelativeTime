@@ -78,7 +78,7 @@ These attributes only take effect when `format=datetime` (i.e. when the absolute
 
 | Setter | Attribute | Java type / values |
 |--------|-----------|--------------------|
-| `setTimeZone(ZoneId)` | `time-zone` | IANA name (e.g. `America/New_York`). `null` removes it; the browser default is used. When unset on the element, the upstream walks DOM ancestors via `closest('[time-zone]')` and falls back to the `<html>` element's `time-zone` attribute, mirroring the `lang` inheritance pattern. |
+| `setTimeZone(ZoneId)` | `time-zone` | IANA name (e.g. `America/New_York`); validated against `ZoneId.getAvailableZoneIds()` (includes `UTC`). Offset-based zones (`ZoneOffset` like `+02:00`/`Z`, or `GMT+02:00`) throw `IllegalArgumentException`, because the browser's `Intl.DateTimeFormat` rejects them with a `RangeError` that breaks rendering. `null` removes it; when unset, the upstream walks DOM ancestors via `closest('[time-zone]')` and falls back to the `<html>` element's `time-zone` attribute, mirroring the `lang` inheritance pattern. |
 | `setTimeZoneName(TimeZoneName)` | `time-zone-name` | `LONG`, `SHORT`, `SHORT_OFFSET`, `LONG_OFFSET`, `SHORT_GENERIC`, `LONG_GENERIC` |
 | `setYear(DateTimePartStyle)` | `year` | `NUMERIC`, `TWO_DIGIT` |
 | `setMonth(DateTimePartStyle)` | `month` | `NUMERIC`, `TWO_DIGIT`, `NARROW`, `SHORT`, `LONG` |
