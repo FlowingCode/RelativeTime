@@ -127,7 +127,7 @@ add(new RelativeTime(LocalDate.of(2025, 1, 1)));
 ### 3.2 Setting the Target Date
 
 ```java
-public class RelativeTime extends Component implements HasSize {
+public class RelativeTime extends Component {                 // HasStyle inherited from Component
 
     public RelativeTime();                                     // empty; datetime can be set later
     public RelativeTime(Instant datetime);
@@ -198,7 +198,7 @@ When no configuration is applied:
 
 ## 5. Theming
 
-The component is rendered as inline text and inherits font, color, and size from its parent. It is compatible with both **Lumo** and **Aura** with no theme-specific CSS. Standard `HasStyle` (inherited from `Component`) and `HasSize` are exposed on the Java side for layout adjustments.
+The component is rendered as inline text and inherits font, color, and size from its parent. It is compatible with both **Lumo** and **Aura** with no theme-specific CSS. `HasStyle` (inherited from `Component`) is available for class-name and inline-style adjustments. `HasSize` is intentionally **not** implemented: the host renders inline, so `width`/`height` would be no-ops; size the surrounding container or set `display` via `getStyle()` if explicit sizing is needed.
 
 ## 6. Serialization
 

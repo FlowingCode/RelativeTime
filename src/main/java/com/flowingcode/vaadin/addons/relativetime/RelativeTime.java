@@ -21,7 +21,6 @@
 package com.flowingcode.vaadin.addons.relativetime;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
@@ -61,7 +60,7 @@ import java.util.Set;
 @NpmPackage(value = "@github/relative-time-element", version = "5.0.0")
 @JsModule("@github/relative-time-element")
 @SuppressWarnings("serial")
-public class RelativeTime extends Component implements HasSize {
+public class RelativeTime extends Component {
 
   private static final String ATTR_DATETIME = "datetime";
   private static final String ATTR_TENSE = "tense";
