@@ -51,8 +51,10 @@ The web component supports several formats. The Java API exposes them as enums w
 The `threshold` attribute (default `P30D`) switches the component from relative ("3 weeks ago") to absolute ("Jan 4, 2024") once the gap to the target exceeds a configurable duration. The Java setter accepts a `java.time.Duration` and serialises it to ISO-8601 (`P30D`, `PT24H`, etc.) before writing the attribute.
 
 ```java
-relativeTime.setThreshold(Duration.ofDays(30)); // → threshold="P30D"
+relativeTime.setThreshold(Duration.ofDays(30)); // → threshold="PT720H"
 ```
+
+(Java's `Duration.toString()` has no day component, so `Duration.ofDays(30)` serialises to `PT720H`. The upstream element treats `PT720H` and `P30D` as equivalent, so the behaviour is identical to the documented `P30D` default.)
 
 **Threshold is only consulted when `format=auto`/`relative` AND `tense=auto`.** Setting `tense=PAST` or `tense=FUTURE` commits the element to relative phrasing regardless of how far away the target is, so the threshold has no effect. Likewise, explicit non-relative formats (`DURATION`, `MICRO`, `ELAPSED`, `DATETIME`) ignore it. This is a common footgun: pairing `setTense(FUTURE)` with `setThreshold(...)` silently makes the threshold inert.
 
