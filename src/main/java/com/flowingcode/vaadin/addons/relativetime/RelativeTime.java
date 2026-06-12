@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Set;
@@ -82,14 +83,14 @@ public class RelativeTime extends Component {
   private static final String ATTR_SECOND = "second";
 
   /** Styles accepted by the numeric date-part attributes (year, day, hour, minute, second). */
-  private static final Set<DateTimePartStyle> NUMERIC_STYLES =
-      Set.of(DateTimePartStyle.NUMERIC, DateTimePartStyle.TWO_DIGIT);
+  private static final Set<DateTimePartStyle> NUMERIC_STYLES = Collections.unmodifiableSet(
+      EnumSet.of(DateTimePartStyle.NUMERIC, DateTimePartStyle.TWO_DIGIT));
   /** Styles accepted by the textual date-part attribute (weekday). */
-  private static final Set<DateTimePartStyle> TEXT_STYLES =
-      Set.of(DateTimePartStyle.NARROW, DateTimePartStyle.SHORT, DateTimePartStyle.LONG);
+  private static final Set<DateTimePartStyle> TEXT_STYLES = Collections.unmodifiableSet(
+      EnumSet.of(DateTimePartStyle.NARROW, DateTimePartStyle.SHORT, DateTimePartStyle.LONG));
   /** Styles accepted by the month attribute (numeric and textual). */
-  private static final Set<DateTimePartStyle> ALL_STYLES =
-      EnumSet.allOf(DateTimePartStyle.class);
+  private static final Set<DateTimePartStyle> ALL_STYLES = Collections.unmodifiableSet(
+      EnumSet.allOf(DateTimePartStyle.class));
 
   private Instant lastDateTime;
 
@@ -263,11 +264,7 @@ public class RelativeTime extends Component {
    * tooltip. {@code false} removes it (the element's default behaviour shows the tooltip).
    */
   public RelativeTime setNoTitle(boolean noTitle) {
-    if (noTitle) {
-      getElement().setAttribute(ATTR_NO_TITLE, true);
-    } else {
-      getElement().removeAttribute(ATTR_NO_TITLE);
-    }
+    getElement().setAttribute(ATTR_NO_TITLE, noTitle);
     return this;
   }
 
