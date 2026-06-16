@@ -1,15 +1,15 @@
 /*-
  * #%L
- * Template Add-on
+ * Relative Time Add-On
  * %%
- * Copyright (C) 2025 Flowing Code
+ * Copyright (C) 2026 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,20 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package com.flowingcode.vaadin.addons.template;
 
-import com.flowingcode.vaadin.addons.demo.DemoSource;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+package com.flowingcode.vaadin.addons.relativetime;
 
-@DemoSource
-@PageTitle("Template Add-on Demo")
-@SuppressWarnings("serial")
-@Route(value = "demo", layout = TemplateDemoView.class)
-public class TemplateDemo extends Div {
+import java.util.Locale;
 
-  public TemplateDemo() {
-    add(new TemplateAddon());
+/** Internal helpers for mapping enum constants to their {@code <relative-time>} wire values. */
+final class AttributeValues {
+
+  private AttributeValues() {}
+
+  /**
+   * Returns the enum constant's name in lower case (e.g. {@code FUTURE} &rarr; {@code "future"}),
+   * the default wire form for enums whose attribute value matches the constant name.
+   */
+  static String ofName(Enum<?> value) {
+    return value.name().toLowerCase(Locale.ROOT);
   }
 }

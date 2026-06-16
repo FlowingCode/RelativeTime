@@ -1,15 +1,15 @@
 /*-
  * #%L
- * Template Add-on
+ * Relative Time Add-On
  * %%
- * Copyright (C) 2025 Flowing Code
+ * Copyright (C) 2026 Flowing Code
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,11 +18,11 @@
  * #L%
  */
 
-package com.flowingcode.vaadin.addons.template.it;
+package com.flowingcode.vaadin.addons.relativetime.it;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.vaadin.testbench.TestBenchElement;
 import org.hamcrest.Description;
@@ -42,7 +42,13 @@ public class ViewIT extends AbstractViewTest {
 
         @Override
         protected boolean matchesSafely(TestBenchElement item, Description mismatchDescription) {
-          String script = "let s=arguments[0].shadowRoot; return !!(s&&s.childElementCount)";
+          // An element is considered upgraded if it has a shadow root AND the shadow root has
+          // either an element child OR non-empty text content. relative-time writes its rendered
+          // phrase via `shadowRoot.textContent =`, which creates a text node (not an element
+          // child), so checking only childElementCount fails for this kind of component.
+          String script =
+              "let s=arguments[0].shadowRoot;"
+                  + " return !!(s && (s.childElementCount || s.textContent.trim()))";
           if (!item.getTagName().contains("-")) {
             return true;
           }
@@ -58,7 +64,7 @@ public class ViewIT extends AbstractViewTest {
 
   @Test
   public void componentWorks() {
-    TestBenchElement element = $("paper-input").first();
+    TestBenchElement element = $("relative-time").first();
     assertThat(element, hasBeenUpgradedToCustomElement);
   }
 }
