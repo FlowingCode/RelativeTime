@@ -50,7 +50,7 @@ import java.util.Locale;
 @DemoSource
 @PageTitle("Basic Demo")
 @SuppressWarnings("serial")
-@Route(value = "basic", layout = RelativeTimeDemoView.class)
+@Route(value = "relative-time/basic", layout = RelativeTimeDemoView.class)
 public class RelativeTimeDemo extends AbstractRelativeTimeDemo {
 
     private static final Instant PAST = Instant.parse("1970-01-01T00:00:00Z");
