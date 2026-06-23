@@ -48,7 +48,7 @@ import java.util.Locale;
 @DemoSource
 @PageTitle("Use Cases")
 @SuppressWarnings("serial")
-@Route(value = "use-cases", layout = RelativeTimeDemoView.class)
+@Route(value = "relative-time/use-cases", layout = RelativeTimeDemoView.class)
 public class UseCasesDemo extends AbstractRelativeTimeDemo {
 
   public UseCasesDemo() {
