@@ -4,7 +4,7 @@
 
     <groupId>com.flowingcode.vaadin.addons</groupId>
     <artifactId>relative-time-addon</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Relative Time Add-On</name>
     <description>Component for rendering dates as auto-updating, locale-aware relative time strings</description>
     <url>https://www.flowingcode.com/en/open-source/</url>
@@ -39,7 +39,7 @@
         <url>https://github.com/FlowingCode/RelativeTime</url>
         <connection>scm:git:git://github.com/FlowingCode/RelativeTime.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:/FlowingCode/RelativeTime.git</developerConnection>
-        <tag>1.0.0</tag>
+        <tag>master</tag>
     </scm>
     
     <developers>
