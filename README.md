@@ -111,6 +111,27 @@ The relative string is computed and updated in the browser by the underlying web
 
 For continuously-ticking elapsed displays use `Format.DURATION` or `Format.MICRO`. `Format.RELATIVE` (the default) collapses past times under a minute to "now". See [SPECIFICATIONS.md](SPECIFICATIONS.md) §2.8 for the full live-update behaviour matrix.
 
+### Components without a value yet
+
+`new RelativeTime()` writes no `datetime` attribute, so **it renders nothing** until `setDateTime` is called. This is intentional, not a failure: there is deliberately no default value, because defaulting to the current instant would display a time that is not the intended one, and would keep ticking away from it until the real value arrived.
+
+Use the no-argument constructor when the value is not available at construction time. For an instance-reusing grid renderer:
+
+```java
+grid.addColumn(new ComponentRenderer<>(RelativeTime::new,
+    (rt, task) -> rt.setDateTime(task.getCreated())));
+```
+
+For a display that starts empty and is filled in from a listener:
+
+```java
+RelativeTime preview = new RelativeTime().setFormatStyle(FormatStyle.LONG);
+picker.addValueChangeListener(e -> preview.setDateTime(e.getValue()));
+add(preview);
+```
+
+Call `clear()` to return the component to the empty state.
+
 ## Special configuration when using Spring
 
 By default, Vaadin Flow only includes `com/vaadin/flow/component` to be always scanned for UI components and views. For this reason, the add-on might need to be allowed in order to display correctly. 

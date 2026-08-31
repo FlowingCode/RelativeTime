@@ -49,6 +49,11 @@ import java.util.Set;
  * the server's. There is no server-side API to read the displayed string; the string lives only
  * in the DOM.
  *
+ * <p><b>Empty state.</b> A component with no target datetime renders nothing at all: the
+ * underlying element has no text to show. This is the documented behaviour of the
+ * {@linkplain #RelativeTime() no-argument constructor} and of {@link #clear()}, not a failure; see
+ * that constructor for when an empty component is the right starting point.
+ *
  * <p><b>Attributes, not properties.</b> Setters write HTML attributes
  * ({@code setAttribute}), not DOM properties, because the upstream element is
  * attribute-driven and its kebab-case attribute names match the upstream docs
@@ -94,7 +99,15 @@ public class RelativeTime extends Component {
 
   private Instant lastDateTime;
 
-  /** Creates an empty component. {@link #setDateTime} can be called later. */
+  /**
+   * Creates a component with no target datetime: nothing is rendered until {@link #setDateTime} is
+   * called. Use it when the value is not available at construction time, such as in component
+   * renderers ({@code new ComponentRenderer<>(RelativeTime::new, (rt, item) -> ...)}),
+   * asynchronously loaded data, or displays that start empty and are reset with {@link #clear()}.
+   *
+   * <p>No default is applied on purpose: defaulting to the current instant would display a time
+   * other than the intended one, and would keep ticking away from it.
+   */
   public RelativeTime() {}
 
   /** Creates a component bound to the given instant. */

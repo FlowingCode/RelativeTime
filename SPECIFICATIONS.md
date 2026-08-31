@@ -119,7 +119,8 @@ The cadence depends on the displayed unit:
 ### 3.1 Construction
 
 ```java
-// Empty: datetime can be set later
+// No datetime: renders nothing until setDateTime is called. Intended for component
+// renderers, asynchronously loaded values, and displays that start empty.
 RelativeTime rt = new RelativeTime();
 add(rt);
 
@@ -133,7 +134,7 @@ add(new RelativeTime(LocalDate.of(2025, 1, 1)));
 ```java
 public class RelativeTime extends Component {                 // HasStyle inherited from Component
 
-    public RelativeTime();                                     // empty; datetime can be set later
+    public RelativeTime();                                     // no datetime; renders nothing until set
     public RelativeTime(Instant datetime);
     public RelativeTime(OffsetDateTime datetime);
     public RelativeTime(ZonedDateTime datetime);
@@ -199,7 +200,7 @@ When no configuration is applied:
 - `time-zone` is unset, so absolute-date output uses the viewer's browser default zone.
 - The `title` attribute is set automatically to the absolute formatted date and is surfaced as a native tooltip.
 - The element auto-updates on its own timer; no polling code is needed on the Java side.
-- `RelativeTime` with no `datetime` set renders as an empty inline element.
+- `RelativeTime` with no `datetime` set renders as an empty inline element. There is deliberately no default value: defaulting to the current instant would display a time other than the intended one and keep ticking away from it. See §3.1.
 
 ## 5. Theming
 
