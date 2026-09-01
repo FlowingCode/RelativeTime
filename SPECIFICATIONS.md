@@ -200,7 +200,7 @@ When no configuration is applied:
 - `time-zone` is unset, so absolute-date output uses the viewer's browser default zone.
 - The `title` attribute is set automatically to the absolute formatted date and is surfaced as a native tooltip.
 - The element auto-updates on its own timer; no polling code is needed on the Java side.
-- `RelativeTime` with no `datetime` set renders as an empty inline element. There is deliberately no default value: defaulting to the current instant would display a time other than the intended one and keep ticking away from it. See §3.1.
+- `RelativeTime` with no `datetime` set renders as an empty inline element. No default datetime is applied; see §3.1.
 
 ## 5. Theming
 

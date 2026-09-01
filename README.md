@@ -113,7 +113,7 @@ For continuously-ticking elapsed displays use `Format.DURATION` or `Format.MICRO
 
 ### Components without a value yet
 
-`new RelativeTime()` writes no `datetime` attribute, so **it renders nothing** until `setDateTime` is called. This is intentional, not a failure: there is deliberately no default value, because defaulting to the current instant would display a time that is not the intended one, and would keep ticking away from it until the real value arrived.
+`new RelativeTime()` writes no `datetime` attribute and renders nothing until `setDateTime` is called. No default is applied: the current instant would be a value the caller did not choose, and it would keep ticking away from the intended one until that value arrives.
 
 Use the no-argument constructor when the value is not available at construction time. For an instance-reusing grid renderer:
 

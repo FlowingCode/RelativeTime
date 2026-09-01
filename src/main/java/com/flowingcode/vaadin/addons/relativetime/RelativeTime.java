@@ -49,10 +49,9 @@ import java.util.Set;
  * the server's. There is no server-side API to read the displayed string; the string lives only
  * in the DOM.
  *
- * <p><b>Empty state.</b> A component with no target datetime renders nothing at all: the
- * underlying element has no text to show. This is the documented behaviour of the
- * {@linkplain #RelativeTime() no-argument constructor} and of {@link #clear()}, not a failure; see
- * that constructor for when an empty component is the right starting point.
+ * <p><b>Empty state.</b> A component with no target datetime renders nothing: the underlying
+ * element has no text to show. This applies to the {@linkplain #RelativeTime() no-argument
+ * constructor} and to {@link #clear()}. See the constructor for the cases it serves.
  *
  * <p><b>Attributes, not properties.</b> Setters write HTML attributes
  * ({@code setAttribute}), not DOM properties, because the upstream element is
@@ -100,13 +99,15 @@ public class RelativeTime extends Component {
   private Instant lastDateTime;
 
   /**
-   * Creates a component with no target datetime: nothing is rendered until {@link #setDateTime} is
-   * called. Use it when the value is not available at construction time, such as in component
-   * renderers ({@code new ComponentRenderer<>(RelativeTime::new, (rt, item) -> ...)}),
-   * asynchronously loaded data, or displays that start empty and are reset with {@link #clear()}.
+   * Creates a relative time component without a target datetime. Renders nothing until
+   * {@link #setDateTime} is called.
    *
-   * <p>No default is applied on purpose: defaulting to the current instant would display a time
-   * other than the intended one, and would keep ticking away from it.
+   * <p>Use this constructor when the datetime is unavailable at creation, such as in component
+   * renderers ({@code new ComponentRenderer<>(RelativeTime::new, ...)}), asynchronous data
+   * loading, or displays reset via {@link #clear()}.
+   *
+   * <p>No default datetime is applied. The current instant would be a value the caller did not
+   * choose, and it would keep ticking away from the intended one until that value arrives.
    */
   public RelativeTime() {}
 
