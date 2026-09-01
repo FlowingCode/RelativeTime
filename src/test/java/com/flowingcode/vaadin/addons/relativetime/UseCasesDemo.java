@@ -96,8 +96,10 @@ public class UseCasesDemo extends AbstractRelativeTimeDemo {
     addUseCase(layout, "stopwatch",
         "Live stopwatch", buildStopwatch(),
         "A running counter using Format.DURATION (ticks every second from 0s with no \"now\""
-            + " plateau). The Start button pins the datetime to now; Stop clears it. Pattern:"
-            + " timers for in-progress work, build/deploy status, \"uptime since\" indicators.");
+            + " plateau). Built with the no-argument constructor, so it renders nothing until"
+            + " Start pins the datetime to now; Stop clears it and it goes back to empty."
+            + " Pattern: timers for in-progress work, build/deploy status, \"uptime since\""
+            + " indicators.");
 
     addUseCase(layout, "session-expiry",
         "Session expiry warning", buildSessionWarning(),
