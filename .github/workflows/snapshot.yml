@@ -1,0 +1,17 @@
+name: Snapshot
+
+# On a maintenance branch, set `branches` to that branch and `java-version` to the
+# JDK the branch targets.
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  snapshot:
+    permissions:
+      contents: read
+      packages: write
+    uses: FlowingCode/GithubActions/.github/workflows/maven-snapshot.yml@main
+    with:
+      java-version: '17'
