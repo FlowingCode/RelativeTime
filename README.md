@@ -1,6 +1,6 @@
 [![Published on Vaadin Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/relative-time-add-on)
 [![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/relative-time-add-on.svg)](https://vaadin.com/directory/component/relative-time-add-on)
-[![Build Status](https://jenkins.flowingcode.com/job/RelativeTime-addon/badge/icon)](https://jenkins.flowingcode.com/job/RelativeTime-addon)
+[![Build Status](https://github.com/FlowingCode/RelativeTime/actions/workflows/maven.yml/badge.svg)](https://github.com/FlowingCode/RelativeTime/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.flowingcode.vaadin.addons/relative-time-addon)](https://mvnrepository.com/artifact/com.flowingcode.vaadin.addons/relative-time-addon)
 [![Javadoc](https://img.shields.io/badge/javadoc-00b4f0)](https://javadoc.flowingcode.com/artifact/com.flowingcode.vaadin.addons/relative-time-addon)
 
@@ -35,7 +35,7 @@ Add the following dependencies in your pom.xml file:
 ```
 <!-- the above dependency should be updated with latest released version information -->
 
-Release versions are available from Maven Central repository. For SNAPSHOT versions see [here](https://maven.flowingcode.com/snapshots/).
+Release versions are available from Maven Central repository. SNAPSHOT versions are published to [GitHub Packages](https://github.com/FlowingCode/RelativeTime/packages) (`https://maven.pkg.github.com/FlowingCode/RelativeTime`), which requires authenticating with a GitHub token that has the `read:packages` scope.
 
 ## Building and running demo
 

@@ -1,0 +1,46 @@
+name: Release
+
+# Run from the branch to release. On a maintenance branch, set `java-version` to the
+# JDK the branch targets.
+on:
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Dry run (release:prepare -DdryRun=true, nothing is pushed or deployed)
+        type: boolean
+        default: true
+      release-version:
+        description: Release version (leave empty for the default)
+        type: string
+        required: false
+      development-version:
+        description: Next development version (leave empty for the default)
+        type: string
+        required: false
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    uses: FlowingCode/GithubActions/.github/workflows/maven-release.yml@main
+    with:
+      java-version: '17'
+      dry-run: ${{ inputs.dry-run }}
+      release-version: ${{ inputs.release-version }}
+      development-version: ${{ inputs.development-version }}
+    secrets: inherit
+
+  # The release pushes the next development version with GITHUB_TOKEN, which does not
+  # trigger the Snapshot workflow, so the new snapshot is deployed from here. `ref`
+  # makes it build the branch head (the new SNAPSHOT version), not the commit the
+  # release was started from.
+  snapshot:
+    needs: release
+    if: ${{ !inputs.dry-run }}
+    permissions:
+      contents: read
+      packages: write
+    uses: FlowingCode/GithubActions/.github/workflows/maven-snapshot.yml@main
+    with:
+      java-version: '17'
+      ref: ${{ github.ref }}
